@@ -1,0 +1,66 @@
+[
+    {
+        "name" : "Roasted Coffee-bean Premium",
+        "imageUrl" : "https://images.tokopedia.net/img/cache/100-square/product-1/2016/11/8/13251618/13251618_cf021535-8803-4c49-87d7-3521e157e8f9.jpg.webp?ect=4g" ,
+        "price" : 215000,
+        "userId" : 1,
+        "categoryId" : 1,
+        "stock" : 10
+    },
+    {
+        "name" : "Biji Kopi Green Bean Arabika Full Wash Sukabumi Speciality Coffee",
+        "imageUrl" : "https://images.tokopedia.net/img/cache/100-square/VqbcmM/2022/3/29/a0f6e01d-3080-4059-8300-a2eec04137f9.jpg.webp?ect=4g" ,
+        "price" : 125000,
+        "userId" : 1,
+        "categoryId" : 2,
+        "stock" : 10
+    },
+    {
+        "name" : "Kopi Luwak Liar Biji Original 1 Kg AZA Coffee",
+        "imageUrl" : "https://images.tokopedia.net/img/cache/100-square/VqbcmM/2021/4/23/6e0952d2-a4f6-4df6-ad5e-ede51819f3e3.jpg.webp?ect=4g" ,
+        "price" : 235000,
+        "userId" : 1,
+        "categoryId" : 3,
+        "stock" : 10
+    },
+    {
+        "name" : "Green Bean Kopi Robusta",
+        "imageUrl" : "https://images.tokopedia.net/img/cache/100-square/product-1/2019/11/29/2715454/2715454_8b931af6-1e16-4a12-aa49-df30179d68fc_1560_1560.jpg.webp?ect=4g" ,
+        "price" : 75000,
+        "userId" : 1,
+        "categoryId" : 4,
+        "stock" : 10
+    },
+    {
+        "name" : "Green Bean Kopi Arabica",
+        "imageUrl" : "https://images.tokopedia.net/img/cache/100-square/VqbcmM/2022/7/26/76411964-cf80-420d-9e37-376afc7c161f.jpg.webp?ect=4g" ,
+        "price" : 95000,
+        "userId" : 1,
+        "categoryId" : 5,
+        "stock" : 10
+    },
+    {
+        "name" : "Green bean Biji Kopi Arabica Bali Kintamani",
+        "imageUrl" : "https://images.tokopedia.net/img/cache/100-square/VqbcmM/2020/9/8/69c2aac8-a428-4eca-9bbd-10fcad4db880.jpg.webp?ect=4g" ,
+        "price" : 90000,
+        "userId" : 1,
+        "categoryId" : 6,
+        "stock" : 10
+    },
+    {
+        "name" : "Biji Kopi Exelsa 1kg Green Bean",
+        "imageUrl" : "https://images.tokopedia.net/img/cache/100-square/hDjmkQ/2022/7/21/d04bdd99-6bf4-41f9-b6e0-84be2c534785.jpg.webp?ect=4g" ,
+        "price" : 70000,
+        "userId" : 1,
+        "categoryId" : 7,
+        "stock" : 10
+    },
+    {
+        "name" : "Biji Kopi Gayo 1kg Green Bean",
+        "imageUrl" : "https://images.tokopedia.net/img/cache/100-square/product-1/2019/2/11/95018258/95018258_ca498ca6-be12-476e-a34e-771092a431bb_1560_1560.jpg.webp?ect=4g" ,
+        "price" : 90000,
+        "userId" : 1,
+        "categoryId" : 8,
+        "stock" : 10
+    }
+]
