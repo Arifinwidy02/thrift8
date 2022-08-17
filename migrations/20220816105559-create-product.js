@@ -19,21 +19,21 @@ module.exports = {
       },
       UserId: {
         type: Sequelize.INTEGER,
-        references:{
-          model:"Users",
-          key:"id"
-       },
-       onUpdate: "cascade",
-       onDelete: "cascade",
+        references: {
+          model: "Users",
+          key: "id"
+        },
+        onUpdate: "cascade",
+        onDelete: "cascade",
       },
       categoryId: {
         type: Sequelize.INTEGER,
-        references:{
-          model:"Categories",
-          key:"id"
-       },
-       onUpdate: "cascade",
-       onDelete: "cascade",
+        references: {
+          model: "Categories",
+          key: "id"
+        },
+        onUpdate: "cascade",
+        onDelete: "cascade",
       },
       createdAt: {
         allowNull: false,
