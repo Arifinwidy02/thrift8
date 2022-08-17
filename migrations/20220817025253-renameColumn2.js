@@ -1,17 +1,18 @@
 'use strict';
 
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  up(queryInterface, Sequelize) {
     /**
      * Add altering commands here.
      *
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    return queryInterface.renameColumn("Profiles", "userId", "UserId")
+    return queryInterface.renameColumn("Products", "categoryId", "CategoryId")
+
   },
 
-  async down(queryInterface, Sequelize) {
+  down(queryInterface, Sequelize) {
     /**
      * Add reverting commands here.
      *
