@@ -3,7 +3,8 @@ const bcrypt = require('bcrypt')
 
 class userController {
     static register(req,res){
-        res.render('register')
+        const errors = req.query
+        res.render('register', {errors})
     }
     static postRegister(req,res){
         const {
@@ -13,45 +14,54 @@ class userController {
             email,
             password
         } = req.body
-        User.create({email, password})
+        User.create({email, password, role})
         .then(newUser=>{
-            console.log({firstName,lastName,role, userId: newUser.id});
-            return Profile.create({firstName,lastName,role, UserId: newUser.id})
+            console.log({firstName,lastName, userId: newUser.id});
+            return Profile.create({firstName,lastName, UserId: newUser.id})
         })
         .then(result=>{
-            res.redirect('/')
+            res.redirect('/login')
         })
         .catch(err=>{
-            res.send(err)
-            console.log(err);
+            let errors = err
+            if(err.name == "SequelizeValidationError"){
+                errors = err.errors.map(el=>{
+                    return el.message
+                })
+            }
+            res.redirect(`/register/?err=${errors}`)
         })
 
     }
-    // static posRegister(req,res){
-    //     // console.log(req.body);
-    //     let{email,password,role,DepartmentId} = req.body
-    //     let {name,gender,dateOfBirth,status} = req.body
-
-    //     User.create({email,password,role,DepartmentId})
-    //     .then((result) => {
-    //         console.log(result);
-    //         return Profile.create({name,gender,dateOfBirth,status,UserId:result.id})
-    //     })
-    //     .then((result)=>{
-    //         // console.log(result,'result 2');
-    //         // res.send(result)
-    //         res.redirect('/login')
-
-    //     })
-    //     .catch((err) => {
-    //         if (err.name === "SequelizeValidationError") {
-    //             err = err.errors.map((e=>e.message))
-    //             res.redirect(`/register?err=${err}`)
-    //         } else{
-    //         res.send(err)
-    //         }
-    //     });
-
+    static login(req,res){
+        const errors = req.query
+        res.render('login', {errors})
+    }
+    static postLogin(req,res){
+        const { email, password } = req.body
+        User.findOne({where:{email}})
+        .then(user=>{
+            console.log(user);
+            if(user){
+                const isValidPassword = bcrypt.compareSync(password,user.password)
+                if(isValidPassword){
+                    req.session.UserId = user.id
+                    req.session.role = user.role
+                    console.log(req.session);
+                    return res.redirect(`/`)
+                } else {
+                    const error = `invalid password and email`
+                    return res.redirect(`/login?err=${error}`)
+                }
+            } else {
+                const error = `account not registered`
+                    return res.redirect(`/login?err=${error}`)
+            }
+        })
+        .catch(err=>{
+            res.send(err)
+        })
+    }
 }
 
 module.exports = userController
