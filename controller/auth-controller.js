@@ -16,7 +16,7 @@ class userController {
         User.create({email, password})
         .then(newUser=>{
             console.log({firstName,lastName,role, userId: newUser.id});
-            return Profile.create({firstName,lastName,role, userId: newUser.id})
+            return Profile.create({firstName,lastName,role, UserId: newUser.id})
         })
         .then(result=>{
             res.redirect('/')
