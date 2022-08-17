@@ -1,4 +1,6 @@
 'use strict';
+const { toRupiah } = require('../helper')
+
 const {
   Model
 } = require('sequelize');
@@ -14,6 +16,9 @@ module.exports = (sequelize, DataTypes) => {
       Product.belongsTo(models.Category)
       Product.hasMany(models.Cart)
       // define association here
+    }
+    get FormattedCurrency(){
+      return toRupiah()
     }
   }
   Product.init({

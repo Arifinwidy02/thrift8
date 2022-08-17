@@ -26,7 +26,7 @@ module.exports = {
         onUpdate: "cascade",
         onDelete: "cascade",
       },
-      categoryId: {
+      CategoryId: {
         type: Sequelize.INTEGER,
         references: {
           model: "Categories",

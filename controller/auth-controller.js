@@ -1,5 +1,6 @@
 const { Profile, User } = require('../models')
 const bcrypt = require('bcrypt')
+const nodeMail = require('../server')
 
 class userController {
     static register(req,res){
@@ -16,7 +17,7 @@ class userController {
         } = req.body
         User.create({email, password, role})
         .then(newUser=>{
-            console.log({firstName,lastName, userId: newUser.id});
+        nodeMail(email)
             return Profile.create({firstName,lastName, UserId: newUser.id})
         })
         .then(result=>{
@@ -39,16 +40,15 @@ class userController {
     }
     static postLogin(req,res){
         const { email, password } = req.body
-        User.findOne({where:{email}})
+        User.findOne({include:{model:Profile}, where:{email: email}})
         .then(user=>{
-            console.log(user);
             if(user){
                 const isValidPassword = bcrypt.compareSync(password,user.password)
                 if(isValidPassword){
                     req.session.UserId = user.id
                     req.session.role = user.role
-                    console.log(req.session);
-                    return res.redirect(`/`)
+                    req.session.name = user.Profile.firstName
+                    res.redirect(`/products`)
                 } else {
                     const error = `invalid password and email`
                     return res.redirect(`/login?err=${error}`)
@@ -60,6 +60,15 @@ class userController {
         })
         .catch(err=>{
             res.send(err)
+        })
+    }
+    static logout(req,res){
+        req.session.destroy(err=>{
+            if(err){
+                res.send(err)
+            } else {
+                res.redirect(`/login`)
+            }
         })
     }
 }

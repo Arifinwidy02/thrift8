@@ -13,6 +13,7 @@
 
 <body>
     <h2 class="text-center">Product Home</h2>
+    <a href="/products/checkout">Cart</a>
     <% if (notification) { %>
         <p style="color: Tomato;">
             <%=notification %>
@@ -22,6 +23,7 @@
             <!-- Search form -->
             <input class="form-control" type="text" placeholder="Search" aria-label="Search">
             <!-- end of Search form -->
+            <a href="/add"><button>Add Product</button></a>
             <table class="table">
                 <thead>
                     <tr>
@@ -35,27 +37,18 @@
                 </thead>
                 <tbody>
                     <% data.forEach(e=> { %>
-
                         <tr>
-                            <th scope="row">
-                                <%= e.name %>
-                            </th>
-                            <th>
-                                <%= e.Category.name %>
-                            </th>
-                            <th>
-                                <%= e.stock%>
-                            </th>
-                            <th>
-                                <%= toRupiah(e.price) %>
-                            </th>
-                            <th>
-                                <img src="<%=e.imageUrl  %>">
-                            </th>
-                            <th><a href="/home/buy/<%=e.id%>"><button>Buy</button></a>
-                                <a href="/home/<%=e.id%>/delete"><Button>Delete</Button></a>
-                            </th>
-
+                            <td scope="row"><%= e.name %></td>
+                            <td><%= e.Category.name %></td>
+                            <td><%= e.stock%></td>
+                            <td><%= e.FormattedCurrency %></td>
+                            <td><img src="<%=e.imageUrl  %>"></td>
+                            <% if(session.role == `owner`){ %>
+                                <td><a href="/products/buy/<%=e.id%>"><button>Buy</button></a>
+                                    <a href="/products/<%=e.id%>/delete"><Button>Delete</Button></a></td>
+                            <% } else { %>
+                                <td><a href="/products/buy/<%=e.id%>"><button>Buy</button></a>
+                                <% } %> 
                         </tr>
                         <% }) %>
                 </tbody>
