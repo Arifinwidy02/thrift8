@@ -15,9 +15,17 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Profile.init({
-    firstName: DataTypes.STRING,
+    firstName: 
+    {
+      type: DataTypes.STRING,
+      validate:
+      {
+        notEmpty: {
+          msg: `first Name cannot be empthy`
+        }
+      }
+    },
     lastName: DataTypes.STRING,
-    role: DataTypes.STRING,
     UserId: DataTypes.INTEGER
   }, {
     sequelize,
