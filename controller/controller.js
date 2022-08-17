@@ -29,7 +29,6 @@ class Controller {
             .then(data => {
                 let notification = `Product with name ${namaProduct} has been removed`
                 res.redirect(`/products/?notification=${notification}`)
-                // res.redirect(`/products`)
             })
             .catch(err => res.send(err))
     }
