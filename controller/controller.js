@@ -1,8 +1,12 @@
 const { Product, Category, Cart } = require('../models')
 const { toRupiah } = require('../helper')
 
+
 class Controller {
-    static landingPage(req, res) {
+
+    static landingPage(req,res){
+        console.log(req.session, 'req session yang home');
+
         res.render('landingPage')
     }
     static register(req, res) {
@@ -37,17 +41,20 @@ class Controller {
 
     static buy(req, res) {
         let id = req.params.productId
-        Product.findOne({ where: { id: id } })
-            .then(data => {
-                const { name, price, id } = data
-                return Cart.create({ name, price, ProductId: +id })
-            })
-            .then(result => {
-                res.redirect('/products')
-            })
-            .catch(err => {
-                res.send(err)
-            })
+
+
+        Product.findOne({where:{id: id}})
+        .then(data=>{
+            const {name, price, id} = data
+            return Cart.create({name, price, ProductId: +id})
+        })
+        .then(result=>{
+            res.redirect('/products')
+        })
+        .catch(err=>{
+            res.send(err)
+        })
+
         // GIFARI
         // Product.decrement({ stock: 1 }, { where: { id } })
         //     .then(data => {
@@ -55,14 +62,17 @@ class Controller {
         //     })
         //     .catch(err => res.send(err))
     }
-    static checkout(req, res) {
+
+    static checkout(req,res){
+        const session = req.session
         Cart.findAll()
-            .then(data => {
-                res.render('checkout', { data })
-            })
-            .catch(err => {
-                res.send(err)
-            })
+        .then(data=>{
+            res.render('checkout', {data, session})
+        })
+        .catch(err=>{
+            res.send(err)
+        })
+
     }
     static cartDelete(req, res) {
         Cart.destroy({ where: { id: req.params.id } })

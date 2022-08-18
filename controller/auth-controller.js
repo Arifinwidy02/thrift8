@@ -1,6 +1,7 @@
 const { Profile, User } = require('../models')
 const bcrypt = require('bcrypt')
 const nodeMail = require('../server')
+var sessionname = ''
 
 class userController {
     static register(req,res){
