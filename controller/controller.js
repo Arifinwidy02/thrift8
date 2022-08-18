@@ -1,5 +1,5 @@
 const { Product, Category, Cart } = require('../models')
-
+const { toRupiah } = require('../helper')
 
 class Controller {
     static landingPage(req,res){
@@ -15,7 +15,7 @@ class Controller {
         let notification = req.query.notification
         Product.findAll({ include: { model: Category } })
             .then(data => {
-                res.render('products', { data, notification, session })
+                res.render('products', { data, notification, session, toRupiah })
             })
             .catch(err => res.send(err))
     }
@@ -101,13 +101,26 @@ class Controller {
         })
     }
     static add(req, res) {
-        res.render('add')
+        const errors = req.query
+        res.render('add', {errors})
     }
     static postAdd(req, res) {
         let data = req.body
         Product.create(data)
-            .then(e => res.redirect("/products"))
-            .catch(err => res.send(err))
+            .then(e => {
+                res.redirect("/products")
+            })
+            .catch(err =>{
+                let errors = err
+                if(err.name == "SequelizeValidationError"){
+                    errors = err.errors.map(el=>{
+                        return el.message
+                    })
+                }
+                // console.log(errors);
+                // res.send(errors)
+                res.redirect(`/add/?err=${errors}`)
+            })
     }
 
 }

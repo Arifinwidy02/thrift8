@@ -8,8 +8,10 @@
     <%- include('./partial/stylebs.ejs') %> 
 </head>
 <body>
+  <div class="container">
+
     <section class="vh-100">
-        <div class="container py-5 h-100">
+      <div class="container py-5 h-100">
           <div class="row d-flex align-items-center justify-content-center h-100">
             <div class="col-md-8 col-lg-7 col-xl-6">
               <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
@@ -20,13 +22,13 @@
                 <% if(errors){ %>
                     <p style="color: red;"><%= errors.err %></p>
                   <% } %> 
-                <!-- Email input -->
-                <div class="form-outline mb-4">
+                  <!-- Email input -->
+                  <div class="form-outline mb-4">
                     <label class="form-label" for="form1Example13">Email address</label>
-                  <input name="email" type="email" id="form1Example13" class="form-control form-control-lg" />
-                </div>
+                    <input name="email" type="email" id="form1Example13" class="form-control form-control-lg" />
+                  </div>
       
-                <!-- Password input -->
+                  <!-- Password input -->
                 <div class="form-outline mb-4">
                     <label class="form-label" for="form1Example23">Password</label>
                   <input name="password" type="password" id="form1Example23" class="form-control form-control-lg" />
@@ -36,11 +38,13 @@
       
                 <!-- Submit button -->
                 <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
-      
               </form>
             </div>
+            Don't have account ? Don't be worry register <a href="/register">here</a>
+            
           </div>
         </div>
       </section>
-</body>
+    </div>
+    </body>
 </html>

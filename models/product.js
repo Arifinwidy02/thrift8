@@ -1,5 +1,5 @@
 'use strict';
-const { toRupiah } = require('../helper')
+const toRupiah = require('../helper/helper')
 
 const {
   Model
@@ -17,17 +17,72 @@ module.exports = (sequelize, DataTypes) => {
       Product.hasMany(models.Cart)
       // define association here
     }
-    get FormattedCurrency(){
-      return toRupiah()
+    get unit() {
+      return `${this.stock} Package`
+    }
+    formatedPrice(){
+      return toRupiah(this.price)
     }
   }
   Product.init({
-    name: DataTypes.STRING,
-    imageUrl: DataTypes.STRING,
-    price: DataTypes.INTEGER,
-    UserId: DataTypes.INTEGER,
-    CategoryId: DataTypes.INTEGER,
-    stock: DataTypes.INTEGER
+    name: {
+      type: DataTypes.STRING,
+      validate:{
+        notEmpty:{
+          msg: `name cannot be empthy`
+        }
+      }
+    },
+    imageUrl: {
+      type: DataTypes.STRING,
+      validate:{
+        notEmpty:{
+          msg: `imageUrl cannot be empthy`
+        }
+      }
+    },
+    price: {
+      type: DataTypes.INTEGER,
+      validate:{
+        notEmpty:{
+          msg: `Price cannot be empthy`
+        },
+        isStock(value){
+          if(value > 1000000){
+            throw new Error(`price must be under Rp. 1000.000,-`)
+          }
+        }
+      }
+    },
+    UserId: {
+      type: DataTypes.INTEGER,
+      validate:{
+        notEmpty:{
+          msg: `UserId cannot be empthy`
+        }
+      }
+    },
+    CategoryId: {
+      type: DataTypes.INTEGER,
+      validate:{
+        notEmpty:{
+          msg: `Category cannot be empthy`
+        }
+      }
+    },
+    stock: {
+      type: DataTypes.INTEGER,
+      validate:{
+        notEmpty:{
+          msg: `Category cannot be empthy`
+        },
+        isStock(value){
+          if(value < 1 || value > 50){
+            throw new Error(`stock must be between 1 and 50`)
+          }
+        }
+      }
+    }
   }, {
     sequelize,
     modelName: 'Product',

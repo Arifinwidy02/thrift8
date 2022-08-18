@@ -12,7 +12,8 @@
 </head>
 
 <body>
-    <h2 class="text-center">Product Home</h2>
+    <h2 class="text-center">One Step to add Happiness in Your Life</h2>
+    <h3 class="text-center">with click payment</h3>
     <% let totalBelanja = 0%>
             <table class="table">
                 <thead>
@@ -29,17 +30,17 @@
                             <td scope="row"><%= idx + 1 %></td>
                             <td><%= el.name %></td>
                             <td><%= el.price %> <%totalBelanja += el.price%></td>
-                            <td><a href="/products/<%= el.id %>/cart/delete">Delete</a></td>
+                            <td><a href="/products/<%= el.id %>/cart/delete"><button type="button" class="btn btn-outline-danger">Delete</button></a></td>
                         </tr>
                         <% }) %>
                     </tbody>
                 </table>
                 <h3>Total Belanja : <%=totalBelanja%></h3>
                 <a href="/products/cart/purchase">
-                    <button>Bayar</button>
+                    <button type="button" class="btn btn-outline-success">Order Now</button>
                 </a>
                 <a href="/products">
-                    <button>Kembali</button>
+                    <button type="button" class="btn btn-outline-primary">Back</button>
                 </a>
 </body>
 
