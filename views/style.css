@@ -11,3 +11,7 @@
 .container {
     padding: 2px 1px;
 }
+
+img {
+    border-radius: 0px 0px 0 0;
+}

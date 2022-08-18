@@ -12,29 +12,57 @@
 </head>
 
 <body>
-    <form action="/add" method="post">
-        <label>Product Name</label>
-        <input type="text" name="name"><br>
-        <label>Category</label>
-        <select name="CategoryId" id="cars">
-            <option value="1">roasted</option>
-            <option value="2">greenbean</option>
-            <option value="3">luwak coffee</option>
-            <option value="4">robusta</option>
-            <option value="5">arabica</option>
-            <option value="6">bali kintamani</option>
-            <option value="7">excelsa</option>
-            <option value="8">gayo</option>
-        </select><br>
-        <label>Stock</label>
-        <input type="number" name="stock"><br>
-        <label>Price</label>
-        <input type="text" name="price"><br>
-        <label>Image</label>
-        <input type="text" name="image"><br>
-        <button type="submit" style="color: tomato;">Submit</button>
-    </form>
+    <%- include('./partial/stylebs.ejs') %>
 
+        <h2 class="text-center">Add Your Coffee Here</h2>
+        <form action="/add" method="post">
+            <!-- 2 column grid layout with text inputs for the first and last names -->
+            <div class="row mb-4">
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" id="form6Example1" class="form-control" name="name"
+                            placeholder="Product Name" />
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline">
+                        <select class="form-control" name="CategoryId" id="cars">
+                            <option selected>Select Here</option>
+                            <option value="1">roasted</option>
+                            <option value="2">greenbean</option>
+                            <option value="3">luwak coffee</option>
+                            <option value="4">robusta</option>
+                            <option value="5">arabica</option>
+                            <option value="6">bali kintamani</option>
+                            <option value="7">excelsa</option>
+                            <option value="8">gayo</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Text input -->
+            <div class="form-outline mb-4">
+                <input type="number" name="stock" id="form6Example3" class="form-control"
+                    placeholder="Input Stock Here" />
+            </div>
+
+            <!-- Text input -->
+            <div class="form-outline mb-4">
+                <input type="number" name="price" id="form6Example4" class="form-control"
+                    placeholder="Input Price Here" />
+            </div>
+
+
+
+            <!-- Number input -->
+            <div class="form-outline mb-4">
+                <input type="text" name="image" placeholder="Input Image Here" id="form6Example6"
+                    class="form-control" />
+            </div>
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary btn-block mb-4">Submit</button>
+        </form>
 </body>
 
 </html>
