@@ -38,17 +38,26 @@
                 <tbody>
                     <% data.forEach(e=> { %>
                         <tr>
-                            <td scope="row"><%= e.name %></td>
-                            <td><%= e.Category.name %></td>
-                            <td><%= e.stock%></td>
-                            <td><%= e.FormattedCurrency %></td>
+                            <td scope="row">
+                                <%= e.name %>
+                            </td>
+                            <td>
+                                <%= e.Category.name %>
+                            </td>
+                            <td>
+                                <%= e.kopi%>
+                            </td>
+                            <td>
+                                <%= toRupiah(e.price) %>
+                            </td>
                             <td><img src="<%=e.imageUrl  %>"></td>
-                            <% if(session.role == `owner`){ %>
+                            <% if(session.role==`owner`){ %>
                                 <td><a href="/products/buy/<%=e.id%>"><button>Buy</button></a>
-                                    <a href="/products/<%=e.id%>/delete"><Button>Delete</Button></a></td>
-                            <% } else { %>
-                                <td><a href="/products/buy/<%=e.id%>"><button>Buy</button></a>
-                                <% } %> 
+                                    <a href="/products/<%=e.id%>/delete"><Button>Delete</Button></a>
+                                </td>
+                                <% } else { %>
+                                    <td><a href="/products/buy/<%=e.id%>"><button>Buy</button></a>
+                                        <% } %>
                         </tr>
                         <% }) %>
                 </tbody>

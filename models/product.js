@@ -17,8 +17,8 @@ module.exports = (sequelize, DataTypes) => {
       Product.hasMany(models.Cart)
       // define association here
     }
-    get FormattedCurrency(){
-      return toRupiah()
+    get kopi() {
+      return `${this.stock} Package`
     }
   }
   Product.init({

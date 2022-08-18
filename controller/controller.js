@@ -1,7 +1,8 @@
 const { Product, Category, Cart } = require('../models')
+const { toRupiah } = require('../helper')
 
 class Controller {
-    static landingPage(req,res){
+    static landingPage(req, res) {
         res.render('landingPage')
     }
     static register(req, res) {
@@ -13,7 +14,8 @@ class Controller {
         let notification = req.query.notification
         Product.findAll({ include: { model: Category } })
             .then(data => {
-                res.render('products', { data, notification, session })
+                // res.send(data)
+                res.render('products', { data, notification, session, toRupiah })
             })
             .catch(err => res.send(err))
     }
@@ -35,17 +37,17 @@ class Controller {
 
     static buy(req, res) {
         let id = req.params.productId
-        Product.findOne({where:{id: id}})
-        .then(data=>{
-            const {name, price, id} = data
-            return Cart.create({name, price, ProductId: +id})
-        })
-        .then(result=>{
-            res.redirect('/products')
-        })
-        .catch(err=>{
-            res.send(err)
-        })
+        Product.findOne({ where: { id: id } })
+            .then(data => {
+                const { name, price, id } = data
+                return Cart.create({ name, price, ProductId: +id })
+            })
+            .then(result => {
+                res.redirect('/products')
+            })
+            .catch(err => {
+                res.send(err)
+            })
         // GIFARI
         // Product.decrement({ stock: 1 }, { where: { id } })
         //     .then(data => {
@@ -53,48 +55,48 @@ class Controller {
         //     })
         //     .catch(err => res.send(err))
     }
-    static checkout(req,res){
+    static checkout(req, res) {
         Cart.findAll()
-        .then(data=>{
-            res.render('checkout', {data})
-        })
-        .catch(err=>{
-            res.send(err)
-        })
+            .then(data => {
+                res.render('checkout', { data })
+            })
+            .catch(err => {
+                res.send(err)
+            })
     }
-    static cartDelete(req,res){
+    static cartDelete(req, res) {
         Cart.destroy({ where: { id: req.params.id } })
-        .then(result=>{
-            res.redirect(`/products/cart/purchase`)
-        })
-        .catch(err=>{
-            res.send(err)
-        })
+            .then(result => {
+                res.redirect(`/products/cart/purchase`)
+            })
+            .catch(err => {
+                res.send(err)
+            })
     }
-    static purchase(req,res){
+    static purchase(req, res) {
         let tempId = []
         Cart.findAll()
-        .then(data=>{
-            data.forEach(el=>{
-                tempId.push(el.ProductId)
+            .then(data => {
+                data.forEach(el => {
+                    tempId.push(el.ProductId)
+                })
+                tempId.forEach(el => {
+                    Product.decrement({ stock: 1 }, { where: { id: el } })
+                })
+                return
             })
-            tempId.forEach(el=>{
-                Product.decrement({ stock: 1 }, { where: { id: el } })
+            .then((result) => {
+                return Cart.destroy({
+                    where: {},
+                    truncate: true
+                })
             })
-            return
-        })
-        .then((result)=>{
-            return Cart.destroy({
-                where: {},
-                truncate: true
+            .then((result) => {
+                res.redirect('/products')
             })
-        })
-        .then((result)=>{
-            res.redirect('/products')
-        })
-        .catch(err=>{
-            res.send(err)
-        })
+            .catch(err => {
+                res.send(err)
+            })
     }
     static add(req, res) {
         res.render('add')
