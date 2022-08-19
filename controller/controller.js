@@ -1,10 +1,11 @@
 const { Product, Category, Cart } = require('../models')
-const { toRupiah } = require('../helper')
-
+const { toRupiah } = require('../helper');
+const { options } = require('nodemon/lib/config');
+const { Op } = require('sequelize')
 
 class Controller {
 
-    static landingPage(req,res){
+    static landingPage(req, res) {
         console.log(req.session, 'req session yang home');
 
         res.render('landingPage')
@@ -16,7 +17,17 @@ class Controller {
     static products(req, res) {
         const session = req.session
         let notification = req.query.notification
-        Product.findAll({ include: { model: Category } })
+        let search = req.query.search
+        let include = { include: { model: Category } }
+        let option = include
+        if (search) {
+            option = {
+                ...include,
+                where: { name: { [Op.iLike]: `%${search}%` } }
+            }
+        }
+        console.log(option);
+        Product.findAll(option)
             .then(data => {
                 // res.send(data)
                 res.render('products', { data, notification, session, toRupiah })
@@ -43,17 +54,17 @@ class Controller {
         let id = req.params.productId
 
 
-        Product.findOne({where:{id: id}})
-        .then(data=>{
-            const {name, price, id} = data
-            return Cart.create({name, price, ProductId: +id})
-        })
-        .then(result=>{
-            res.redirect('/products')
-        })
-        .catch(err=>{
-            res.send(err)
-        })
+        Product.findOne({ where: { id: id } })
+            .then(data => {
+                const { name, price, id } = data
+                return Cart.create({ name, price, ProductId: +id })
+            })
+            .then(result => {
+                res.redirect('/products')
+            })
+            .catch(err => {
+                res.send(err)
+            })
 
         // GIFARI
         // Product.decrement({ stock: 1 }, { where: { id } })
@@ -63,15 +74,15 @@ class Controller {
         //     .catch(err => res.send(err))
     }
 
-    static checkout(req,res){
+    static checkout(req, res) {
         const session = req.session
         Cart.findAll()
-        .then(data=>{
-            res.render('checkout', {data, session})
-        })
-        .catch(err=>{
-            res.send(err)
-        })
+            .then(data => {
+                res.render('checkout', { data, session })
+            })
+            .catch(err => {
+                res.send(err)
+            })
 
     }
     static cartDelete(req, res) {
