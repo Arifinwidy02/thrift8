@@ -13,6 +13,9 @@ module.exports = (sequelize, DataTypes) => {
       Category.hasMany(models.Product)
       // define association here
     }
+    coffee() {
+      return `coffee ${this.name}`
+    }
   }
   Category.init({
     name: DataTypes.STRING
