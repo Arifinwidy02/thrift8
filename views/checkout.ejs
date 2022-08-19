@@ -29,13 +29,13 @@
                         <tr>
                             <td scope="row"><%= idx + 1 %></td>
                             <td><%= el.name %></td>
-                            <td><%= el.price %> <%totalBelanja += el.price%></td>
+                            <td><%= toRupiah(el.price) %> <%totalBelanja += el.price%></td>
                             <td><a href="/products/<%= el.id %>/cart/delete"><button type="button" class="btn btn-outline-danger">Delete</button></a></td>
                         </tr>
                         <% }) %>
                     </tbody>
                 </table>
-                <h3>Total Belanja : <%=totalBelanja%></h3>
+                <h3>Total Belanja : <%=toRupiah(totalBelanja)%></h3>
                 <a href="/products/cart/purchase">
                     <button type="button" class="btn btn-outline-success">Order Now</button>
                 </a>

@@ -9,7 +9,6 @@ class Controller {
     }
     static register(req, res) {
         res.render('register')
-        let anjya;
     }
 
     static products(req, res) {
@@ -62,18 +61,12 @@ class Controller {
             .catch(err => {
                 res.send(err)
             })
-        // GIFARI
-        // Product.decrement({ stock: 1 }, { where: { id } })
-        //     .then(data => {
-        //         res.redirect('/products')
-        //     })
-        //     .catch(err => res.send(err))
     }
     static checkout(req, res) {
         const session = req.session
         Cart.findAll()
             .then(data => {
-                res.render('checkout', { data, session })
+                res.render('checkout', { data, session, toRupiah })
             })
             .catch(err => {
                 res.send(err)

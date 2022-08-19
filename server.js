@@ -1,6 +1,4 @@
 const nodemailer = require("nodemailer")
-// require('dotenv').config()
-//step1
 
 function nodeMail(email) {
     let transporter = nodemailer.createTransport({
@@ -16,7 +14,7 @@ function nodeMail(email) {
         from: "hai.warungku@gmail.com",
         to: email,
         subject: 'Confirmation email Success',
-        text: "Selamat datang di kolom Komentarr!!"
+        text: "Selamat datang di dunia tipu-tipu!!"
     }
 
     //step3
