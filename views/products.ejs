@@ -13,7 +13,7 @@
     
     <body>
         <%- include('./partial/stylebs.ejs') %>
-    <h2 class="text-center">Home of Our Best Products!</h2>
+    <h2 class="text-center">Home of the Best Coffee Bean u've ever seen!</h2>
     <div class="container">
         <% if (notification) { %>
             <p style="color: Tomato;">
@@ -22,13 +22,12 @@
         <% } %> <br>
             <div>
                     <a a href="/products/checkout"><button type="button" class="btn btn-outline-info"><i class="bi bi-basket fa-lg"> checkout</i></button></a>
-                <a href="/add"><button type="button" class="btn btn-primary"><i class="bi bi-plus-square"></i></button></a> Add Product 
+                <a href="/add"><button type="button" class="btn btn-primary"><i class="bi bi-plus-square"></i></button></a> Add Product <br><br>
+                <form action="/products">
+                    <input type="text" name="search" placeholder="search">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
             </div>
-            Search Here
-            <!-- Search form -->
-            <input class="form-control" type="text" placeholder="Search" aria-label="Search">
-            <!-- end of Search form -->
-
                 <table class="table">
                     <thead>
                     <tr>

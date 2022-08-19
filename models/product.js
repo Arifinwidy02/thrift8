@@ -17,11 +17,17 @@ module.exports = (sequelize, DataTypes) => {
       Product.hasMany(models.Cart)
       // define association here
     }
+  //  formatedUnit() {
+  //     return `${this.stock} Package`
+  //   }
+  //   get formatedPrice(){
+  //     return toRupiah(this.price)
+  //   }
     get unit() {
       return `${this.stock} Package`
     }
-    formatedPrice(){
-      return toRupiah(this.price)
+    formatedPrice(input){
+      return toRupiah(input)
     }
   }
   Product.init({
@@ -86,6 +92,11 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Product',
+    hooks:{
+      beforeCreate(newData,option){
+        newData.UserId = 1
+      }
+    }
   });
   return Product;
 };

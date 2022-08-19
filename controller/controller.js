@@ -1,5 +1,6 @@
 const { Product, Category, Cart } = require('../models')
 const { toRupiah } = require('../helper')
+const {Op} = require('sequelize')
 
 class Controller {
     static landingPage(req,res){
@@ -13,8 +14,19 @@ class Controller {
     static products(req, res) {
         const session = req.session
         let notification = req.query.notification
-        Product.findAll({ include: { model: Category } })
+        let search = req.query.search
+        let include = { include: { model: Category } }
+        let option = include
+        if (search) {
+            option = {
+                ...include,
+                where: { name: { [Op.iLike]: `%${search}%` } }
+            }
+        }
+        console.log(option);
+        Product.findAll(option)
             .then(data => {
+                // res.send(data)
                 res.render('products', { data, notification, session, toRupiah })
             })
             .catch(err => res.send(err))
